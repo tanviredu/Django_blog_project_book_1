@@ -17,31 +17,14 @@
         {% include "blog/nav.html" %}
         {% include "blog/title.html" %}
 
-        <div class="row mb-2">
-        {% include "blog/postcard.html" %}
-        {% include "blog/postcard.html" %}
-        </div>
+
+        {% block content %}
+        {% endblock %}
 
 
 
 
 
-
-
-       <main role="main" class="container">
-         <div class="row">
-           <div class="col-md-8 blog-main">
-             <h3 class="pb-3 mb-4 font-italic border-bottom">
-               Posts
-             </h3>
-
-             {% include "blog/blogpost.html" %}
-
-
-             {% include "blog/pagination.html" %}
-
-
-         </div>
 
 
        </main>
