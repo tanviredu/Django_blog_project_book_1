@@ -23,6 +23,8 @@
     {% endfor %}
     </div>
 
-    {% include "blog/post/pagination.html" with page=posts %}
-
+        <!-- for method based
+    <!-- {% include "blog/post/pagination.html" with page=posts %}
+        <!-- for class based -->
+        {% include "blog/post/pagination.html" with page=page_obj %}
   {% endblock %}
