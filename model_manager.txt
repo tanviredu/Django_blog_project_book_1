@@ -1,0 +1,29 @@
+when we query data we use the "objects" keyword
+
+like Post.objects.get()
+     Post.objects.filter()
+     Post.objects.create()
+
+objects is a manager which has different function to work. with
+with proper filter we can query anything
+
+we can make custom manager that inherit from the base manager
+and tweak its parameter
+
+so we make a manager from the base manager and make
+configure it so that when it fetch data it will only pull the
+post which has
+status = 'publish'
+
+that's save  time for filter data
+because this manager automatically pull data from published
+no longer need to add filter
+
+
+we will inherit from the models.Manager
+and then we have to feed the base constractor with super
+then we have to override the 'get_queryset' method
+
+
+
+then we use the manager to query data 
