@@ -1,5 +1,6 @@
 from django.shortcuts import render,HttpResponse
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from  .models import Post
 
 
@@ -10,9 +11,22 @@ from  .models import Post
 def post_list(request):
 
     ## get all the published post
-    posts = Post.published.all()
+    object_list = Post.published.all()
+    paginator = Paginator(object_list,3)  ## 3 post in each page
+    # page automatically holds the current page number
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page);
+    except PageNotAnInteger:
+            # if now an intger show the first page
+        posts = paginator.page(1)
+
+            # else show the last page
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
     #return HttpResponse(posts)
-    return render(request,'blog/post/list.html',{'posts':posts})
+    return render(request,'blog/post/list.html',{'page':page,'posts':posts})
 
 
 ## here post parameter is the slug
