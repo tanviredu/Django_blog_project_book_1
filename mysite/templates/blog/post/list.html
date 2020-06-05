@@ -1,10 +1,22 @@
-<<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends "blog/base.html" %}
 
-  </body>
-</html>
+  {% block title %} MyBlog {% endblock %}
+
+  {% block content %}
+    <h2> MyBlog </h2>
+
+    {% for post in posts %}
+         <h2>
+            <!-- adding the absolute url ro fo to the
+            detail
+            -->
+            <a href="{{post.get_ablosute_url }}">{{post}}</a>
+        </h2>
+
+          <p>
+              Published {{ post.publish }} by {{post.author }}
+          </p>
+          
+    {% endfor %}
+
+  {% endblock %}
