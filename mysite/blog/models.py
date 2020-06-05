@@ -55,6 +55,14 @@ class Post(models.Model):
     status = models.CharField(max_length=10,choices=STATUS_CHOICES,default='draft')
 
     # adding the object of the custom manager
+    # and also the deault one
+    # we need both
+    # because the admin panel will use
+    # the default one
+    # and we use the published one
+    # other wise we will see the only published post in admin admin panel
+    # in admin panel we want all of it draft and published
+    objects = models.Manager()
     published = PublishedManager()
 
     class Meta:
