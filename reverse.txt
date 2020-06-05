@@ -1,0 +1,17 @@
+reverse is a function that
+can call another url on urls.py
+with the name and provide the parameter with it
+like when you go from the
+
+post list to detail post
+when you link the reverse function can call a url and take you
+to the details page of the page
+
+and remember we add this functionality in the models.py
+
+## in reverse we call the url with the name
+    ## attach to it
+    ## and the argument that the method in views.py
+    ## that is pointed to the url
+
+    and we use this in template

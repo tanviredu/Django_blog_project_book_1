@@ -24,6 +24,11 @@ we will inherit from the models.Manager
 and then we have to feed the base constractor with super
 then we have to override the 'get_queryset' method
 
+you add multiple manager
+remeber you must have to add the default manager with the other manager
+
+because admin panel use the default manager 
 
 
-then we use the manager to query data 
+
+then we use the manager to query data
