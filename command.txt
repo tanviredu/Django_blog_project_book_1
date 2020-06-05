@@ -1,0 +1,35 @@
+>>> from django.contrib.auth.models import User
+>>> from blog.models import Post
+>>> user = user.objects.get(username="admin")
+>>> user = User.objects.get(username="admin")
+
+>>> user
+<User: admin>
+>>> post = Post(title="first post",slug='first-post',body='Post Body',author
+=user)
+>>> post
+<Post:  Title : first post       Author : admin      Status: draft>
+>>> post.save()
+>>> user = User.objects.get(username='admin')
+>>> user
+<User: admin>
+>>> post = Post(title="second post",slug='second-post',body='Second Post Bod
+y',author=user)
+>>> post.save()
+>>> Post.objects.create(title="one more post",slug='one-more-post',body='One
+ more post body',author=user)
+<Post:  Title : one more post       Author : admin      Status: draft>
+>>> post.title = "hello"
+>>> post.save()
+>>> all_post = Post.objects.all()
+>>> all_post
+>>> # the author is related with the usermodel so if you search the post
+>>> # with the author then the field is author__username
+>>> Post.objects.filter(author__username='admin')
+>>> Post.objects.filter(publish__year=2020)
+>>> Post.objects.filter(publish__year=2020).filter(author__username='admin')
+>>> Post.objects.order_by('title')
+>>> post = Post.objects.get(id=1)
+>>> post
+<Post:  Title : Test post 1       Author : admin      Status: draft>
+>>> post.delete()
