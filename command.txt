@@ -33,3 +33,10 @@ y',author=user)
 >>> post
 <Post:  Title : Test post 1       Author : admin      Status: draft>
 >>> post.delete()
+
+
+
+from models.blog import Post
+Post.published.filter(author__username="admin")
+<QuerySet [<Post:  Title : my name-is mid night uthor : admin Status: publish
+ed>]>

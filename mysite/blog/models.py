@@ -3,6 +3,36 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+
+## adding model Manager
+## and add the objects to the Post
+# so we can add use it
+
+
+class PublishedManager(models.Manager):
+    ## override the function
+
+    def get_queryset(self):
+        ## returniing the
+        ## base method with the filter
+        return super(PublishedManager,self).get_queryset().filter(status='published')
+        ## now the get query set will always
+        ## send the filter
+        ## now we have to add it to the Post
+        ## so we can access it
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Post(models.Model):
 
     STATUS_CHOICES = (
@@ -24,6 +54,8 @@ class Post(models.Model):
     ## your input limted with the choice
     status = models.CharField(max_length=10,choices=STATUS_CHOICES,default='draft')
 
+    # adding the object of the custom manager
+    published = PublishedManager()
 
     class Meta:
         ## you have to add the comma
@@ -31,4 +63,4 @@ class Post(models.Model):
 
 
     def __str__(self):
-        return " Title : {}       Author : {}      Status: {}".format(self.title,self.author,self.status)
+        return " Title : {} uthor : {} Status: {}".format(self.title,self.author,self.status)
