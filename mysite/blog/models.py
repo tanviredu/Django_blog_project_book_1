@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-
+from dhango.urls import reverse
 
 
 ## adding model Manager
@@ -72,3 +72,17 @@ class Post(models.Model):
 
     def __str__(self):
         return " Title : {} uthor : {} Status: {}".format(self.title,self.author,self.status)
+
+    def get_ablosute_url(self):
+        ## in reverse we call the url with the name
+        ## attach to it
+        ## and the argument that the method in views.py
+        ## that is pointed to the url
+        return reverse('blog:post_detail',args = [
+            self.publish.year,
+            self.publish.month,
+            self.publish.day,
+            self.slug
+        ])
+
+        ## we used this
