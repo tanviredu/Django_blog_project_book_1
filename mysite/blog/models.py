@@ -88,6 +88,8 @@ class Post(models.Model):
         ## we used this
 
 class Comment(models.Model):
+    # this related name will call it
+    #like post.comments
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=80)
     email = models.EmailField()
@@ -102,4 +104,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return "Comment by {} on {}".format(self.name,self.post)
-        

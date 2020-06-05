@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views.generic import ListView
 from  .models import Post
+from  .forms import CommentForm
 
 
 
@@ -41,5 +42,36 @@ class PostList(ListView):
 ## here post parameter is the slug
 def post_detail(request,year,month,day,post):
     post = get_object_or_404(Post,slug = post,status='published',publish__year=year,publish__month = month,publish__day=day)
-    #return HttpResponse(post)
-    return render(request,'blog/post/detail.html',{'post':post})
+
+    ## getting all the comments
+    comments = post.comments.filter(active=True)
+
+    ## setting new comment status
+    new_comment = None
+
+    if request.method == 'POST':
+        ## comment is taken from the
+        ## form class
+        comment_form = CommentForm(data=request.POST)
+
+        if comment_form.is_valid():
+
+            ## make the object for saving
+            ## but not doing it right now
+            new_comment = comment_form.save(commit=False)
+            # now we need to add the Post
+            ## to the current object
+            ## so we will know which commnt is for
+            ## which post
+            #because in the form we do not provide the
+            # filed and we should not
+            new_comment.post = post
+
+            # now save
+            new_comment.save()
+    else:
+        # if there is no comment
+        # then give them the form
+        comment_form = CommentForm()
+        #and render it
+        return render(request,'blog/post/detail.html',{'post':post,'comments':comments,'new_comment':new_comment,'comment_form':comment_form})
