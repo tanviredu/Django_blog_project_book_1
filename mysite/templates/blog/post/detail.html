@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends "blog/base.html" %}
 
-  </body>
-</html>
+
+  {% block title %} {{post.title}} {% endblock %}
+  {% block content %}
+
+
+  <div class="blog-post">
+      <h2 class="blog-post-title">{{ post.title|upper }}</h2>
+      <p class="blog-post-meta"> {{post.publish }}</p>
+
+      <hr>
+      <p>{{post.body}}</p>
+      <blockquote>
+        Author :  <strong>{{post.author}}</strong>
+      </blockquote>
+  </div><!-- /.blog-post -->
+
+
+    {% endblock %}
