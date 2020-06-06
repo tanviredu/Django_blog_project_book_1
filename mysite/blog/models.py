@@ -105,3 +105,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return "Comment by {} on {}".format(self.name,self.post)
+
+
+class PostLikes(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return " {} is liked by  {} at {}".format(self.post,self.user,self.created)
