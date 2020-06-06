@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post,Comment
+from .models import Post,Comment,PostLikes
 
 ##admin.site.register(Post)
 
@@ -26,3 +26,9 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('name','email','post','created','active')
     list_filter = ('active','created','updated')
     search_field = ('name','email')
+
+@admin.register(PostLikes)
+class PostLikesAdmin(admin.ModelAdmin):
+    list_display = ('user','post','created',)
+    list_filter = ('created',)
+    search_field = ('user','post')

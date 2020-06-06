@@ -43,6 +43,12 @@ class Post(models.Model):
     slug = models.SlugField(max_length=270,unique_for_date='publish')
     author = models.ForeignKey(User,on_delete=models.CASCADE,related_name="blog_posts")
     body = models.TextField()
+
+    ## likes field is a many to many relationship
+    ## one user can like multiple post
+    ## and one post can have multiple likes
+    likes = models.ManyToManyField(User,blank=True,related_name='post_likes')
+    
     publish = models.DateField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True) ## add date in the first time
     updated = models.DateTimeField(auto_now=True) ## add every time updated
@@ -107,6 +113,9 @@ class Comment(models.Model):
         return "Comment by {} on {}".format(self.name,self.post)
 
 
+
+## not going to use this model
+## add a likes filed in the post model
 class PostLikes(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     post = models.ForeignKey(Post,on_delete=models.CASCADE)
