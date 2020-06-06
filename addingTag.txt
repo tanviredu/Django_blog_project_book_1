@@ -1,0 +1,10 @@
+from blog.models import Post
+>>> post = Post.objects.get(id=2)
+>>> post
+<Post:  Title : my name-is mid night uthor : admin Status: published>
+>>> post.tags.add('music','jazz','django')
+>>> post.tags.all()
+<QuerySet [<Tag: jazz>, <Tag: music>, <Tag: django>]>
+>>> post.tags.remove('django')
+>>> post.tags.all()
+<QuerySet [<Tag: jazz>, <Tag: music>]>
