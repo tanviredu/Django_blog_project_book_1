@@ -4,40 +4,57 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views.generic import ListView
 from  .models import Post
 from  .forms import CommentForm
+from taggit.models import Tag
 
 
 
-
-class PostList(ListView):
-    queryset = Post.published.all()
-    context_object_name = 'posts'
-    paginate_by = 3
-    template_name = 'blog/post/list.html'
+# class PostList(ListView):
+#     queryset = Post.published.all()
+#     context_object_name = 'posts'
+#     paginate_by = 3
+#     template_name = 'blog/post/list.html'
 
 
 
 
 # ## this is the list view
-# def post_list(request):
-#
-#     ## get all the published post
-#     object_list = Post.published.all()
-#     paginator = Paginator(object_list,3)  ## 3 post in each page
-#     # page automatically holds the current page number
-#     page = request.GET.get('page')
-#     try:
-#         posts = paginator.page(page);
-#     except PageNotAnInteger:
-#             # if now an intger show the first page
-#         posts = paginator.page(1)
-#
-#             # else show the last page
-#     except EmptyPage:
-#         posts = paginator.page(paginator.num_pages)
-#
-#     #return HttpResponse(posts)
-#     return render(request,'blog/post/list.html',{'page':page,'posts':posts})
-#
+## adding a optional element
+## so we can add it
+def post_list(request,tag_slug=None):
+
+    ## get all the published post
+    object_list = Post.published.all()
+    # creating a field
+    tag=None
+
+
+    if(tag_slug):
+        ## if there is a tag then search by it
+        ## other wise searchall
+        ## fetch the tag
+        tag = get_object_or_404(Tag,slug=tag_slug)
+        print(tag)
+        ## object list
+        ## filtering
+        object_list = object_list.filter(tags__in=[tag])
+        print(object_list)
+
+    paginator = Paginator(object_list,3)  ## 3 post in each page
+    # page automatically holds the current page number
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page);
+    except PageNotAnInteger:
+            # if now an intger show the first page
+        posts = paginator.page(1)
+
+            # else show the last page
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    #return HttpResponse(posts)
+    return render(request,'blog/post/list.html',{'page':page,'posts':posts,'tag':tag})
+
 
 ## here post parameter is the slug
 def post_detail(request,year,month,day,post):
