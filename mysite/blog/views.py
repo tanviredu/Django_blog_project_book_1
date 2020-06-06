@@ -74,4 +74,4 @@ def post_detail(request,year,month,day,post):
         # then give them the form
         comment_form = CommentForm()
         #and render it
-        return render(request,'blog/post/detail.html',{'post':post,'comments':comments,'new_comment':new_comment,'comment_form':comment_form})
+    return render(request,'blog/post/detail.html',{'post':post,'comments':comments,'new_comment':new_comment,'comment_form':comment_form})
