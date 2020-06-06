@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-
+from taggit.managers import TaggableManager
 
 ## adding model Manager
 ## and add the objects to the Post
@@ -64,6 +64,7 @@ class Post(models.Model):
     # in admin panel we want all of it draft and published
     objects = models.Manager()
     published = PublishedManager()
+    tags = TaggableManager()
 
     class Meta:
         ## you have to add the comma
