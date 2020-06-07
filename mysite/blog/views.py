@@ -33,11 +33,9 @@ def post_list(request,tag_slug=None):
         ## other wise searchall
         ## fetch the tag
         tag = get_object_or_404(Tag,slug=tag_slug)
-        print(tag)
         ## object list
         ## filtering
         object_list = object_list.filter(tags__in=[tag])
-        print(object_list)
 
     paginator = Paginator(object_list,3)  ## 3 post in each page
     # page automatically holds the current page number
